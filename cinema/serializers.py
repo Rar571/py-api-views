@@ -5,9 +5,9 @@ from cinema.models import Movie, Genre, Actor, CinemaHall
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(max_length=255)
-    description = serializers.CharField()
-    duration = serializers.IntegerField()
+    title = serializers.CharField(max_length=255, required=True)
+    description = serializers.CharField(max_length=255, required=True)
+    duration = serializers.IntegerField(required=True)
 
     def create(self, validated_data):
         return Movie.objects.create(**validated_data)
@@ -54,6 +54,8 @@ class ActorSerializer(serializers.Serializer):
 class CinemaHallSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=255, required=True)
+    rows = serializers.IntegerField(required=True)
+    seats_in_row = serializers.IntegerField(required=True)
 
     def create(self, validated_data):
         return CinemaHall.objects.create(**validated_data)
